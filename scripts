@@ -1,0 +1,7 @@
+scripts/__init__.py
+scripts/clustering_bantul.py
+scripts/clustering_gunung_kidul.py
+scripts/clustering_kota_yogyakarta.py
+scripts/clustering_kulon_progo.py
+scripts/clustering_sleman.py
+scripts/lat_long.py
