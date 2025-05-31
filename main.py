@@ -287,7 +287,6 @@ if st.session_state.page == "clustering":
     if not os.path.exists(file_latlong):
         df_lokasi = pd.DataFrame(columns=["Nama Tempat", "Latitude", "Longitude"])
         df_lokasi.to_excel(file_latlong, index=False)
-        st.success("File latlong baru telah dibuat.")
     else:
         df_lokasi = pd.read_excel(file_latlong)
 
