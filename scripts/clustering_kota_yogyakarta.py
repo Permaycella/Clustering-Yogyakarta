@@ -7,6 +7,7 @@ from scipy.cluster.hierarchy import fcluster
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import zscore
 
+
 # Fungsi untuk memberi label pada cluster berdasarkan nilai rata-rata
 def label_cluster(x, overall_mean):
     if x > overall_mean * 1.2:
@@ -23,7 +24,8 @@ def do_clustering(df_input):
     df_numeric = df_input.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
     # ---------------------- 2. Imputasi nilai kosong ----------------------
-    df_filled = df_numeric.fillna(df_numeric.mean(numeric_only=True))
+    df_numeric_row_filled = df_numeric.apply(lambda row: row.fillna(row.mean()), axis=1)
+    df_filled = df_numeric_row_filled.copy()
     df_filled.insert(0, "Nama Tempat", nama_tempat)
 
     # ---------------------- 3. Deteksi & penanganan outlier ----------------------
@@ -46,7 +48,7 @@ def do_clustering(df_input):
 
     # ---------------------- 5. Clustering dengan metode & threshold konsisten ----------------------
     linkage_method = 'average'
-    threshold_distance = 6  # Konsisten dengan dendrogram di Streamlit
+    threshold_distance = 5
 
     linkage_matrix = sch.linkage(data_scaled, method=linkage_method)
     cluster_labels = fcluster(linkage_matrix, t=threshold_distance, criterion='distance')
@@ -69,8 +71,8 @@ def do_clustering(df_input):
     df_final = df_cleaned
     features_used = features
     rekomendasi_wisata = df_cleaned[df_cleaned["Label"] == "Tinggi"][["Nama Tempat", "Cluster"]]
-
-    return df_cleaned, features, rekomendasi_wisata
+    return df_cleaned, features, rekomendasi_wisata, df_filled
+        
 
 # Fungsi untuk menggambar dendrogram
 def plot_dendrogram(df_final, features_used, ax=None):
@@ -78,9 +80,9 @@ def plot_dendrogram(df_final, features_used, ax=None):
         raise ValueError("Jalankan do_clustering(df_input) terlebih dahulu.")
     scaler = StandardScaler()
     data_scaled = scaler.fit_transform(df_final[features_used])
-    linkage_matrix = sch.linkage(data_scaled, method='average')
+    linkage_matrix = sch.linkage(data_scaled, method='complete')
     if ax is None:
         fig, ax = plt.subplots(figsize=(10, 5))
     sch.dendrogram(linkage_matrix, ax=ax)
     ax.set_title("Dendrogram - Average Linkage")
-    ax.axhline(y=6, color='r', linestyle='--')
+    ax.axhline(y=5, color='r', linestyle='--')
