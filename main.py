@@ -269,14 +269,6 @@ if st.session_state.page == "clustering":
     # Panggil fungsi di dalam modul seperti biasa
     df_input = st.session_state.df_input
     df_cleaned, features, rekomendasi, df_filled = clustering_scripts.do_clustering(df_input)
-    # Bulatkan hanya kolom angka (Januari - Desember) saja
-    numeric_cols = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-    
-    df_cleaned_display = df_cleaned.copy()
-    df_cleaned_display[numeric_cols] = df_cleaned_display[numeric_cols].round(0).astype(int)
-    
-    st.dataframe(df_cleaned_display)
 
     
     # Dendrogram
@@ -285,7 +277,13 @@ if st.session_state.page == "clustering":
     clustering_scripts.plot_dendrogram(df_cleaned, features, ax=ax)
     st.pyplot(fig)
     st.subheader("📋 Hasil Clustering")
-    st.dataframe(df_cleaned)
+     numeric_cols = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+    
+    df_cleaned_display = df_cleaned.copy()
+    df_cleaned_display[numeric_cols] = df_cleaned_display[numeric_cols].round(0).astype(int)
+    
+    st.dataframe(df_cleaned_display)
 
     # Jarak Antar Tempat Wisata
     st.subheader("🗺 Jarak Antar Tempat Wisata")
