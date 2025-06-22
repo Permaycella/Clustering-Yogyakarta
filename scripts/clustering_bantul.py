@@ -71,8 +71,8 @@ def do_clustering(df_input):
     df_final = df_cleaned
     features_used = features
     rekomendasi_wisata = df_cleaned[df_cleaned["Label"] == "Tinggi"][["Nama Tempat", "Cluster"]]
-
-    return df_cleaned, features, rekomendasi_wisata
+    return df_cleaned, features, rekomendasi_wisata, df_filled
+        
 
 # Fungsi untuk menggambar dendrogram
 def plot_dendrogram(df_final, features_used, ax=None):
