@@ -23,10 +23,7 @@ def do_clustering(df_input):
     df_numeric = df_input.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
     # ---------------------- 2. Imputasi nilai kosong ----------------------
-    df_numeric_row_filled = df_numeric.apply(
-        lambda row: row.fillna(row.mean()), axis=1
-    )
-    
+    df_numeric_row_filled = df_numeric.apply(lambda row: row.fillna(row.mean()), axis=1)
     df_filled = df_numeric_row_filled.copy()
     df_filled.insert(0, "Nama Tempat", nama_tempat)
     # ---------------------- 3. Deteksi & penanganan outlier ----------------------
@@ -73,7 +70,7 @@ def do_clustering(df_input):
     features_used = features
     rekomendasi_wisata = df_cleaned[df_cleaned["Label"] == "Tinggi"][["Nama Tempat", "Cluster"]]
 
-    return df_cleaned, features, rekomendasi_wisata
+   return df_cleaned, features, rekomendasi_wisata, df_filled
 
 # Fungsi untuk menggambar dendrogram
 def plot_dendrogram(df_final, features_used, ax=None):
