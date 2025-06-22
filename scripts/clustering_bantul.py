@@ -6,6 +6,8 @@ import scipy.cluster.hierarchy as sch
 from scipy.cluster.hierarchy import fcluster
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import zscore
+import streamlit as st
+
 
 # Fungsi untuk memberi label pada cluster berdasarkan nilai rata-rata
 def label_cluster(x, overall_mean):
