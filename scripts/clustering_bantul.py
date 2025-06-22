@@ -26,7 +26,7 @@ def do_clustering(df_input):
     df_numeric_row_filled = df_numeric.apply(lambda row: row.fillna(row.mean()), axis=1)
     df_filled = df_numeric_row_filled.copy()
     df_filled.insert(0, "Nama Tempat", nama_tempat)
-    st.dataframe(df_filled.round(0))
+    st.dataframe(df_filled.round(0).astype(int))
 
     # ---------------------- 3. Deteksi & penanganan outlier ----------------------
     features = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
