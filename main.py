@@ -268,7 +268,7 @@ if st.session_state.page == "clustering":
 
     # Panggil fungsi di dalam modul seperti biasa
     df_input = st.session_state.df_input
-    df_cleaned, features, rekomendasi = clustering_scripts.do_clustering(df_input)
+    df_cleaned, features, rekomendasi, df_filled = clustering_scripts.do_clustering(df_input)
     st.dataframe(df_filled.round(0))
     
     # Dendrogram
