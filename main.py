@@ -317,7 +317,7 @@ if st.session_state.page == "clustering":
         st.stop()
 
     # Lakukan clustering dan tampilkan heatmap
-    df_cleaned, features, rekomendasi = clustering_scripts.do_clustering(df_input)
+    df_cleaned, features, rekomendasi, df_filled = clustering_scripts.do_clustering(df_input)
     if not df_lokasi.empty:
         df_with_coords = pd.merge(df_cleaned, df_lokasi, on="Nama Tempat", how="left")
         # Pastikan tidak ada nilai NaN di kolom koordinat
