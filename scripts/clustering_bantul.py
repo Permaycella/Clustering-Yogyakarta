@@ -26,6 +26,7 @@ def do_clustering(df_input):
     df_numeric_row_filled = df_numeric.apply(lambda row: row.fillna(row.mean()), axis=1)
     df_filled = df_numeric_row_filled.copy()
     df_filled.insert(0, "Nama Tempat", nama_tempat)
+
     # ---------------------- 3. Deteksi & penanganan outlier ----------------------
     features = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
@@ -70,7 +71,7 @@ def do_clustering(df_input):
     features_used = features
     rekomendasi_wisata = df_cleaned[df_cleaned["Label"] == "Tinggi"][["Nama Tempat", "Cluster"]]
 
-   return df_cleaned, features, rekomendasi_wisata, df_filled
+    return df_cleaned, features, rekomendasi_wisata, df_filled  # ← ✅ sudah benar sekarang
 
 # Fungsi untuk menggambar dendrogram
 def plot_dendrogram(df_final, features_used, ax=None):
